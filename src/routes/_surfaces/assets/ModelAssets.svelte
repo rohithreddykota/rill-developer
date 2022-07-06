@@ -17,6 +17,7 @@
   } from "$lib/application-state-stores/model-stores";
   import type { PersistentModelEntity } from "$common/data-modeler-state-service/entity-state-service/PersistentModelEntityService";
   import { EntityType } from "$common/data-modeler-state-service/entity-state-service/EntityStateService";
+  import { MODEL_PREVIEW_PAGE_LENGTH } from "$common/constants";
 
   const store = getContext("rill:app:store") as ApplicationStore;
   const persistentModelStore = getContext(
@@ -40,6 +41,15 @@
     if (!showModels) {
       showModels = true;
     }
+  }
+
+  async function selectHandler(modelId: string) {
+    // before moving to the next model, reset the current model's preview length
+    dataModelerService.dispatch("updateModelPreview", [
+      $store.activeEntity.id,
+      MODEL_PREVIEW_PAGE_LENGTH,
+    ]);
+    dataModelerService.dispatch("setActiveAsset", [EntityType.Model, modelId]);
   }
 
   // type Coll
@@ -92,15 +102,11 @@
     transition:slide={{ duration: 200 }}
     id="assets-model-list"
   >
-    {#each availableModels as { id, tableSummaryProps }, i (id)}
+    {#each availableModels as { id, tableSummaryProps } (id)}
       <CollapsibleTableSummary
         entityType={EntityType.Model}
-        on:select={() => {
-          dataModelerService.dispatch("setActiveAsset", [EntityType.Model, id]);
-        }}
-        on:delete={() => {
-          dataModelerService.dispatch("deleteModel", [id]);
-        }}
+        on:select={() => selectHandler(id)}
+        on:delete={() => dataModelerService.dispatch("deleteModel", [id])}
         indentLevel={1}
         {...tableSummaryProps}
       />
