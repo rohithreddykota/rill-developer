@@ -5,9 +5,14 @@
    * Its goal it so utilize all of the other container components
    * and provide the interactions needed to do things with the table.
    */
+  import { onMount } from "svelte";
   import { Table, TableRow, TableCell } from "$lib/components/table/";
   import PreviewTableHeader from "./PreviewTableHeader.svelte";
   import TableHeader from "./TableHeader.svelte";
+  import {
+    MODEL_PREVIEW_PAGE_LENGTH,
+    MODEL_PREVIEW_MAX_LENGTH,
+  } from "$common/constants";
 
   interface ColumnName {
     name: string;
@@ -16,6 +21,7 @@
 
   export let columnNames: ColumnName[];
   export let rows: any[];
+  export let fetchMore: () => Promise<void>;
 
   const MAX_COLUMN_WIDTH = "250px";
 
@@ -36,10 +42,54 @@
       selectedColumns = [...selectedCols, { name, type }];
     }
   }
+
+  // infinite scrolling
+  const lastRowObserver = new IntersectionObserver(
+    async (entries) => {
+      const lastRow = entries[0];
+      if (!lastRow.isIntersecting) return;
+      console.log("trigger row is visible");
+      await fetchMore();
+      lastRowObserver.unobserve(lastRow.target);
+      if (
+        rows.length % MODEL_PREVIEW_PAGE_LENGTH === 0 &&
+        rows.length < MODEL_PREVIEW_MAX_LENGTH
+        // rows.length < model.cardinality // TODO: switch cardinality to totalRows
+      ) {
+        lastRowObserver.observe(document.querySelector(`tr:last-child > th`));
+      }
+    },
+    { rootMargin: "0px" }
+  );
+
+  // TODO: figure out when to attach this observer.
+  // Notes:
+  // - component needs to be mounted. however `onMount` only triggers once, so it's not sufficient.
+  // - race condition between the persistent model query and the derived model error
+  // - model.id and other attributes are somehow being continuously updated by the state service (see hack below)
+  let tableElement;
+  function attachLastRowObserver(): void {
+    console.log("attempting to attach last row observer");
+    if (!tableElement) return;
+    // TODO: && rows.length < model.cardinality
+    if (rows.length % MODEL_PREVIEW_PAGE_LENGTH === 0) {
+      lastRowObserver.observe(document.querySelector(`tr:last-child > th`));
+    }
+  }
+
+  onMount(() => {
+    attachLastRowObserver();
+  });
+
+  // hack: currently, reactive statements dependent on `model.ATTRIBUTE` continuously update, so they're not much help
+  // adding another reactive layer, modelATTRIBUTE, ensures that downstream reactive statements will only trigger when the value truly changes
+  // $: rowsHack = rows; // not quite right
+  // reactive statement to attach the observer when the rows change
+  // $: rowsHack, attachLastRowObserver();
 </script>
 
 <div class="flex relative">
-  <Table>
+  <Table bind:this={tableElement}>
     <!-- headers -->
     <TableRow>
       <TableHeader position="top-left">#</TableHeader>
