@@ -1,5 +1,5 @@
 import { DataModelerActions } from "$common/data-modeler-service/DataModelerActions";
-import { MODEL_PREVIEW_COUNT } from "$common/constants";
+import { MODEL_PREVIEW_PAGE_LENGTH } from "$common/constants";
 import { sanitizeQuery } from "$lib/util/sanitize-query";
 import type { NewModelParams } from "$common/data-modeler-state-service/ModelStateActions";
 import type {
@@ -148,11 +148,45 @@ export class ModelActions extends DataModelerActions {
   }
 
   @DataModelerActions.DerivedModelAction()
+  public async updateModelPreview(
+    { stateService }: DerivedModelStateActionArg,
+    modelId: string,
+    previewLength: number
+  ): Promise<ActionResponse> {
+    const derivedModel = stateService.getById(modelId);
+    if (!derivedModel) {
+      return ActionResponseFactory.getEntityError(
+        `No derived model found for ${modelId}`
+      );
+    }
+    const persistentModel = this.dataModelerStateService.getEntityById(
+      EntityType.Model,
+      StateType.Persistent,
+      modelId
+    );
+
+    const preview = await this.databaseActionQueue.enqueue(
+      {
+        id: modelId,
+        priority: DatabaseActionQueuePriority.ActiveModel,
+      },
+      "getFirstNOfTable",
+      [persistentModel.tableName, previewLength]
+    );
+
+    this.dataModelerStateService.dispatch("updateModelPreview", [
+      modelId,
+      preview,
+    ]);
+  }
+
+  @DataModelerActions.DerivedModelAction()
   @DataModelerActions.ResetStateToIdle(EntityType.Model)
   public async collectModelInfo(
     { stateService }: DerivedModelStateActionArg,
     modelId: string
   ): Promise<ActionResponse> {
+    console.log("collectModelInfo");
     const persistentModel = this.dataModelerStateService.getEntityById(
       EntityType.Model,
       StateType.Persistent,
@@ -232,7 +266,7 @@ export class ModelActions extends DataModelerActions {
                   priority: DatabaseActionQueuePriority.ActiveModel,
                 },
                 "getFirstNOfTable",
-                [persistentModel.tableName, MODEL_PREVIEW_COUNT]
+                [persistentModel.tableName, MODEL_PREVIEW_PAGE_LENGTH]
               ),
             ]),
           // get the total number of rows first, since many parts of the iterative profiling
