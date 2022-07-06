@@ -1,9 +1,7 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { slide } from "svelte/transition";
   import type { ApplicationStore } from "$lib/application-state-stores/application-store";
   import { dataModelerService } from "$lib/application-state-stores/application-store";
-  import { cubicOut as easing } from "svelte/easing";
   import Editor from "$lib/components/Editor.svelte";
   import { drag } from "$lib/drag";
   import {
@@ -15,7 +13,6 @@
     SIDE_PAD,
   } from "$lib/application-state-stores/layout-store";
 
-  import PreviewTable from "$lib/components/table/PreviewTable.svelte";
   import type { PersistentModelEntity } from "$common/data-modeler-state-service/entity-state-service/PersistentModelEntityService";
   import type { DerivedModelEntity } from "$common/data-modeler-state-service/entity-state-service/DerivedModelEntityService";
   import type {
@@ -24,6 +21,7 @@
   } from "$lib/application-state-stores/model-stores";
   import { EntityType } from "$common/data-modeler-state-service/entity-state-service/EntityStateService";
   import Portal from "$lib/components/Portal.svelte";
+  import ModelPreview from "./ModelPreview.svelte";
 
   const store = getContext("rill:app:store") as ApplicationStore;
   const queryHighlight = getContext("rill:app:query-highlight");
@@ -33,8 +31,6 @@
   const derivedModelStore = getContext(
     "rill:app:derived-model-store"
   ) as DerivedModelStore;
-
-  let showPreview = true;
 
   let currentModel: PersistentModelEntity;
   $: currentModel =
@@ -51,6 +47,17 @@
 
   // track innerHeight to calculate the size of the editor element.
   let innerHeight;
+
+  const writeHandler = (evt) => {
+    dataModelerService.dispatch("setActiveAsset", [
+      EntityType.Model,
+      currentModel.id,
+    ]);
+    dataModelerService.dispatch("updateModelQuery", [
+      currentModel.id,
+      evt.detail.content,
+    ]);
+  };
 </script>
 
 <svelte:window bind:innerHeight />
@@ -72,16 +79,7 @@
                 currentModel.id,
               ]);
             }}
-            on:write={(evt) => {
-              dataModelerService.dispatch("setActiveAsset", [
-                EntityType.Model,
-                currentModel.id,
-              ]);
-              dataModelerService.dispatch("updateModelQuery", [
-                currentModel.id,
-                evt.detail.content,
-              ]);
-            }}
+            on:write={writeHandler}
           />
         {/key}
       </div>
@@ -118,38 +116,7 @@
   {/if}
 
   {#if currentModel}
-    <div
-      style:height="{(1 - $modelPreviewVisibilityTween) *
-        $layout.modelPreviewHeight}px"
-      class="p-6 "
-    >
-      <div
-        class="rounded border border-gray-200 border-2  overflow-auto  h-full  {!showPreview &&
-          'hidden'}"
-        class:border={!!currentDerivedModel?.error}
-        class:border-gray-300={!!currentDerivedModel?.error}
-      >
-        {#if currentDerivedModel?.error}
-          <div
-            transition:slide={{ duration: 200, easing }}
-            class="error font-bold rounded-lg p-5 text-gray-700"
-          >
-            {currentDerivedModel.error}
-          </div>
-        {:else if currentDerivedModel?.preview && currentDerivedModel?.profile}
-          <PreviewTable
-            rows={currentDerivedModel.preview}
-            columnNames={currentDerivedModel.profile}
-          />
-        {:else}
-          <div
-            class="grid items-center justify-center italic pt-3 text-gray-600"
-          >
-            no columns selected
-          </div>
-        {/if}
-      </div>
-    </div>
+    <ModelPreview model={currentDerivedModel} query={currentModel.query} />
   {/if}
 </div>
 
