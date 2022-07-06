@@ -186,7 +186,6 @@ export class ModelActions extends DataModelerActions {
     { stateService }: DerivedModelStateActionArg,
     modelId: string
   ): Promise<ActionResponse> {
-    console.log("collectModelInfo");
     const persistentModel = this.dataModelerStateService.getEntityById(
       EntityType.Model,
       StateType.Persistent,
