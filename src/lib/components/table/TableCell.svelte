@@ -26,7 +26,6 @@
 
   export let type;
   export let value;
-  export let name;
   export let index = undefined;
   export let isNull = false;
   export let maxWidth = "";

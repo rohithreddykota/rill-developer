@@ -62,7 +62,6 @@
         <TableHeader position="left">{index + 1}</TableHeader>
         {#each columnNames as { name, type } (index + name)}
           <TableCell
-            {name}
             {type}
             value={row[name]}
             isNull={row[name] === null}
@@ -98,7 +97,6 @@
           >
             {#each selectedColumns as { name, type }}
               <TableCell
-                {name}
                 {type}
                 {index}
                 isNull={row[name] === null}
