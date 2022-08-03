@@ -2,7 +2,11 @@
   import Discord from "$lib/components/icons/Discord.svelte";
   import Docs from "$lib/components/icons/Docs.svelte";
   import InfoCircle from "$lib/components/icons/InfoCircle.svelte";
+  import Tooltip from "$lib/components/tooltip/Tooltip.svelte";
+  import TooltipContent from "$lib/components/tooltip/TooltipContent.svelte";
+  import TooltipTitle from "$lib/components/tooltip/TooltipTitle.svelte";
   import { getContext } from "svelte";
+  import { fly } from "svelte/transition";
 
   const metadata = getContext("rill:app:metadata");
 
@@ -43,10 +47,28 @@
     class="italic px-4 py-1 text-gray-600 flex flex-row items-center gap-x-2"
     style:font-size="10px"
   >
-    <span class="text-gray-400">
-      <InfoCircle size="16px" />
-    </span>
-    version {metadata?.version ?? "unknown version"} –
+    <Tooltip location="top" alignment="start" distance={16}>
+      <a
+        href="https://www.rilldata.com/company/careers"
+        target="_blank"
+        class="text-gray-400 hover:animate-pulse"
+      >
+        <InfoCircle size="16px" />
+      </a>
+      <div
+        slot="tooltip-content"
+        transition:fly={{ duration: 100, y: 8 }}
+        style:width="330px"
+      >
+        <TooltipContent>
+          <TooltipTitle>
+            <svelte:fragment slot="name">Rill Developer</svelte:fragment>
+          </TooltipTitle>
+          Come help us create the next great BI tool! Click to see our open roles.
+        </TooltipContent>
+      </div>
+    </Tooltip>
+    Rill {metadata?.version ?? "unknown version"} –
     {metadata?.commit ?? "no commit"}
   </div>
 </div>
