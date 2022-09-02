@@ -24,22 +24,22 @@ You can [file an issue](https://github.com/rilldata/rill-developer/issues/new/ch
 ## Pick an install option:
 Our binary script is the fastest way to install Rill Developer on Mac or Linux. You can install it using this command:
 
-- [script](https://docs.rilldata.com/install/binary) : run `curl -s https://cdn.rilldata.com/install.sh | bash` and you are ready to start using the Rill [CLI](https://docs.rilldata.com/cli).
+- [script](/install/binary) : run `curl -s https://cdn.rilldata.com/install.sh | bash` and you are ready to start using the Rill [CLI](/cli).
 
 Alternatively you can also download the binary manually:
-- [manual](https://docs.rilldata.com/install/binary) : download the most recent version's binary. `cd` to your download directory and get started with the Rill [CLI](https://docs.rilldata.com/cli).
+- [manual](/install/binary) : download the most recent version's binary. `cd` to your download directory and get started with the Rill [CLI](/cli).
   - [macos-arm64](https://cdn.rilldata.com/rill/latest/macos-arm64/rill)
   - [macos-x64](https://cdn.rilldata.com/rill/latest/macos-x64/rill)
   - [linux-x64](https://cdn.rilldata.com/rill/latest/linux-x64/rill)
   <!-- - [win-x64](https://cdn.rilldata.com/rill/latest/win-x64/rill.exe) -->
 
 You can also install Rill Developer using npm or docker:
-- [npm](https://docs.rilldata.com/install/npm) : run `npm install -g @rilldata/rill`
-- [docker](https://docs.rilldata.com/install/docker) : download our [docker container](https://hub.docker.com/r/rilldata/rill-developer)
+- [npm](/install/npm) : run `npm install -g @rilldata/rill`
+- [docker](/install/docker) : download our [docker container](https://hub.docker.com/r/rilldata/rill-developer)
 
 ## Quick start a new project
 
-You can create and augment your own projects in Rill Developer using the [CLI](https://docs.rilldata.com/cli). Every project starts by initializing the experience. Once initialized, you can ingest data into the project and start the UI.
+You can create and augment your own projects in Rill Developer using the [CLI](/cli). Every project starts by initializing the experience. Once initialized, you can ingest data into the project and start the UI.
 
 ```
 rill init
