@@ -34,13 +34,12 @@ You can also install Rill Developer using npm or docker:
 
 ## Quick start a new project
 
-You can create and augment your own projects in Rill Developer using the [CLI](https://docs.rilldata.com/cli). Every project starts by initializing the experience. Once initialized, you can ingest data into the project and start the UI.
+You can create and augment your own projects in Rill Developer using the [CLI](/cli). Every project starts by initializing the experience. Once initialized, you can ingest data into the project and start the UI.
 
 ```
 rill init
 rill import-source /path/to/data_1.parquet
 rill start
-
 ```
 
 or try our example:
@@ -49,8 +48,10 @@ or try our example:
 rill init-example
 ```
 
+
 ## More information
 See our [documentation](https://docs.rilldata.com) for more information.
+
 
 ## Legal
 By downloading and using our application you are agreeing to the [Rill Terms of Service](https://www.rilldata.com/legal/tos) and [Privacy Policy](https://www.rilldata.com/legal/privacy).
