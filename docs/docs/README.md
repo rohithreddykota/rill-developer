@@ -38,14 +38,6 @@ You can also install Rill Developer using npm or docker:
 
 ## Quick start a new project
 
-You can create and augment your own projects in Rill Developer using the [CLI](/cli). Every project starts by initializing the experience. Once initialized, you can ingest data into the project and start the UI.
-
-or try our example:
-
-```
-rill init-example
-```
-
 
 ## Legal
 By downloading and using our application you are agreeing to the [Privacy Policy](https://rilldata.com/legal/privacy) and [Rill Terms of Service](https://rilldata.com/legal/tos).
