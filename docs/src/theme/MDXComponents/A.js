@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from '@docusaurus/Link';
-import Video from '@site/src/components/Video';
+import Vimeo from '@site/src/components/Vimeo';
 
 export default function MDXA(props) {
   if ((props.href.endsWith(".gif") || props.href.endsWith(".mp4")) && (typeof props.title !== 'undefined')) {
     return (
-      <Video vimeoId={props.title} />
+      <Vimeo vimeoId={props.title} />
     )
   };
   return <Link {...props} />

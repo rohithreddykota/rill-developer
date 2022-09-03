@@ -1,4 +1,4 @@
-import Video from '@site/src/components/Video';
+import Vimeo from '@site/src/components/Vimeo';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './styles.module.css';
@@ -8,7 +8,7 @@ function transformImgClassName(className) {
 }
 export default function MDXImg(props) {
   if ((props.src.endsWith(".gif") || props.src.endsWith(".mp4")) && (typeof props.title !== 'undefined')) {
-    return <Video vimeoId={props.title} />;
+    return <Vimeo vimeoId={props.title} />;
   };
   return (
     <img
