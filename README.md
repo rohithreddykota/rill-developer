@@ -48,10 +48,10 @@ or try our example:
 ```
 rill init-example
 ```
-<!-- (Please note that the command `rill init-example` is temporarily unavailable on Windows.) -->
 
 ## More information
 See our [documentation](https://docs.rilldata.com) for more information.
 
 ## Legal
 By downloading and using our application you are agreeing to the [Rill Terms of Service](https://www.rilldata.com/legal/tos) and [Privacy Policy](https://www.rilldata.com/legal/privacy).
+
