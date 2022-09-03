@@ -31,7 +31,6 @@ Alternatively you can also download the binary manually:
   - [macos-arm64](https://cdn.rilldata.com/rill/latest/macos-arm64/rill)
   - [macos-x64](https://cdn.rilldata.com/rill/latest/macos-x64/rill)
   - [linux-x64](https://cdn.rilldata.com/rill/latest/linux-x64/rill)
-  <!-- - [win-x64](https://cdn.rilldata.com/rill/latest/win-x64/rill.exe) -->
 
 You can also install Rill Developer using npm or docker:
 - [npm](/install/npm) : run `npm install -g @rilldata/rill`
@@ -45,17 +44,13 @@ You can create and augment your own projects in Rill Developer using the [CLI](/
 rill init
 rill import-source /path/to/data_1.parquet
 rill start
-
 ```
 
 or try our example:
 
 ```
 rill init-example
-
 ```
-
-<!-- (Please note that the command `rill init-example` is temporarily unavailable on Windows.) -->
 
 
 ## Legal
