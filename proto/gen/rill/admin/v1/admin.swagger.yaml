@@ -3675,6 +3675,23 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/protobufAny'
+  runtimev1Operation:
+    type: string
+    enum:
+      - OPERATION_UNSPECIFIED
+      - OPERATION_EQ
+      - OPERATION_NEQ
+      - OPERATION_LT
+      - OPERATION_LTE
+      - OPERATION_GT
+      - OPERATION_GTE
+      - OPERATION_OR
+      - OPERATION_AND
+      - OPERATION_IN
+      - OPERATION_NIN
+      - OPERATION_LIKE
+      - OPERATION_NLIKE
+    default: OPERATION_UNSPECIFIED
   v1AddOrganizationMemberUserResponse:
     type: object
     properties:
@@ -3940,7 +3957,7 @@ definitions:
     type: object
     properties:
       op:
-        $ref: '#/definitions/v1Operation'
+        $ref: '#/definitions/runtimev1Operation'
       exprs:
         type: array
         items:
@@ -4608,23 +4625,6 @@ definitions:
       updatedOn:
         type: string
         format: date-time
-  v1Operation:
-    type: string
-    enum:
-      - OPERATION_UNSPECIFIED
-      - OPERATION_EQ
-      - OPERATION_NEQ
-      - OPERATION_LT
-      - OPERATION_LTE
-      - OPERATION_GT
-      - OPERATION_GTE
-      - OPERATION_OR
-      - OPERATION_AND
-      - OPERATION_IN
-      - OPERATION_NIN
-      - OPERATION_LIKE
-      - OPERATION_NLIKE
-    default: OPERATION_UNSPECIFIED
   v1Organization:
     type: object
     properties:
@@ -5363,3 +5363,10 @@ definitions:
         type: string
       role:
         type: string
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - BearerAuth: []

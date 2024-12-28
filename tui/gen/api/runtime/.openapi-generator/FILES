@@ -49,6 +49,7 @@ docs/RuntimeServiceCreateTriggerRequest.md
 docs/RuntimeServiceEditInstanceRequest.md
 docs/RuntimeServiceGenerateRendererRequest.md
 docs/RuntimeServiceGenerateResolverRequest.md
+docs/Runtimev1Operation.md
 docs/Runtimev1Type.md
 docs/StreamResultOfV1QueryBatchResponse.md
 docs/StreamResultOfV1WatchFilesResponse.md
@@ -213,7 +214,6 @@ docs/V1NumericStatistics.md
 docs/V1NumericSummary.md
 docs/V1OlapGetTableResponse.md
 docs/V1OlapListTablesResponse.md
-docs/V1Operation.md
 docs/V1ParseError.md
 docs/V1PingResponse.md
 docs/V1ProfileColumn.md
@@ -325,6 +325,7 @@ src/models/runtime_service_create_trigger_request.rs
 src/models/runtime_service_edit_instance_request.rs
 src/models/runtime_service_generate_renderer_request.rs
 src/models/runtime_service_generate_resolver_request.rs
+src/models/runtimev1_operation.rs
 src/models/runtimev1_type.rs
 src/models/stream_result_of_v1_query_batch_response.rs
 src/models/stream_result_of_v1_watch_files_response.rs
@@ -489,7 +490,6 @@ src/models/v1_numeric_statistics.rs
 src/models/v1_numeric_summary.rs
 src/models/v1_olap_get_table_response.rs
 src/models/v1_olap_list_tables_response.rs
-src/models/v1_operation.rs
 src/models/v1_parse_error.rs
 src/models/v1_ping_response.rs
 src/models/v1_profile_column.rs

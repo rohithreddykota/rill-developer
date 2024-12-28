@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  title: rill/runtime/v1/colors.proto
+  title: rill/runtime/v1/api.proto
   version: version not set
 tags:
   - name: RuntimeService
@@ -3143,6 +3143,23 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/protobufAny'
+  runtimev1Operation:
+    type: string
+    enum:
+      - OPERATION_UNSPECIFIED
+      - OPERATION_EQ
+      - OPERATION_NEQ
+      - OPERATION_LT
+      - OPERATION_LTE
+      - OPERATION_GT
+      - OPERATION_GTE
+      - OPERATION_OR
+      - OPERATION_AND
+      - OPERATION_IN
+      - OPERATION_NIN
+      - OPERATION_LIKE
+      - OPERATION_NLIKE
+    default: OPERATION_UNSPECIFIED
   runtimev1Type:
     type: object
     properties:
@@ -3869,7 +3886,7 @@ definitions:
     type: object
     properties:
       op:
-        $ref: '#/definitions/v1Operation'
+        $ref: '#/definitions/runtimev1Operation'
       exprs:
         type: array
         items:
@@ -5557,23 +5574,6 @@ definitions:
         items:
           type: object
           $ref: '#/definitions/v1TableInfo'
-  v1Operation:
-    type: string
-    enum:
-      - OPERATION_UNSPECIFIED
-      - OPERATION_EQ
-      - OPERATION_NEQ
-      - OPERATION_LT
-      - OPERATION_LTE
-      - OPERATION_GT
-      - OPERATION_GTE
-      - OPERATION_OR
-      - OPERATION_AND
-      - OPERATION_IN
-      - OPERATION_NIN
-      - OPERATION_LIKE
-      - OPERATION_NLIKE
-    default: OPERATION_UNSPECIFIED
   v1ParseError:
     type: object
     properties:
@@ -6423,3 +6423,10 @@ definitions:
         $ref: '#/definitions/v1ResourceName'
       resource:
         $ref: '#/definitions/v1Resource'
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+security:
+  - BearerAuth: []

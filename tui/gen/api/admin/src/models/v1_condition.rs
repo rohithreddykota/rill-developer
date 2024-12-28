@@ -14,7 +14,7 @@ use serde::{Deserialize, Serialize};
 #[derive(Clone, Default, Debug, PartialEq, Serialize, Deserialize)]
 pub struct V1Condition {
     #[serde(rename = "op", skip_serializing_if = "Option::is_none")]
-    pub op: Option<models::V1Operation>,
+    pub op: Option<models::Runtimev1Operation>,
     #[serde(rename = "exprs", skip_serializing_if = "Option::is_none")]
     pub exprs: Option<Vec<models::V1Expression>>,
 }

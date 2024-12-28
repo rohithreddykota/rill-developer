@@ -31,6 +31,7 @@ docs/ListGithubUserReposResponseRepo.md
 docs/ProtobufAny.md
 docs/ProtobufNullValue.md
 docs/RpcStatus.md
+docs/Runtimev1Operation.md
 docs/TelemetryServiceApi.md
 docs/V1AddOrganizationMemberUserResponse.md
 docs/V1AddProjectMemberUserResponse.md
@@ -119,7 +120,6 @@ docs/V1ListWhitelistedDomainsResponse.md
 docs/V1MagicAuthToken.md
 docs/V1MemberUser.md
 docs/V1MemberUsergroup.md
-docs/V1Operation.md
 docs/V1Organization.md
 docs/V1OrganizationPermissions.md
 docs/V1OrganizationQuotas.md
@@ -209,6 +209,7 @@ src/models/mod.rs
 src/models/protobuf_any.rs
 src/models/protobuf_null_value.rs
 src/models/rpc_status.rs
+src/models/runtimev1_operation.rs
 src/models/v1_add_organization_member_user_response.rs
 src/models/v1_add_project_member_user_response.rs
 src/models/v1_alert_options.rs
@@ -296,7 +297,6 @@ src/models/v1_list_whitelisted_domains_response.rs
 src/models/v1_magic_auth_token.rs
 src/models/v1_member_user.rs
 src/models/v1_member_usergroup.rs
-src/models/v1_operation.rs
 src/models/v1_organization.rs
 src/models/v1_organization_permissions.rs
 src/models/v1_organization_quotas.rs
