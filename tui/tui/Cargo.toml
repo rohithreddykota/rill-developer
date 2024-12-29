@@ -1,0 +1,16 @@
+[package]
+name = "tui"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+admin = { path = "../gen/api/admin" }
+runtime = { path = "../gen/api/runtime" }
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+crossterm = { workspace = true }
+ratatui = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = "0.9.34"

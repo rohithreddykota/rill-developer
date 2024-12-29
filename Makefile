@@ -48,3 +48,13 @@ proto.generate:
 	cd proto && buf generate --template buf.gen.ui.yaml
 	npm run generate:runtime-client -w web-common
 	npm run generate:client -w web-admin
+
+
+.PHONY: proto.tui.generate
+proto.tui.generate:
+	# cd proto && buf generate --template buf.gen.tui.yaml --exclude-path rill/ui
+	# cd proto && buf generate --template buf.gen.openapi-tui.yaml --path rill/runtime
+	cd proto && buf generate --template buf.gen.openapi-admin.yaml --path rill/admin
+	cd proto && buf generate --template buf.gen.openapi-runtime.yaml --path rill/runtime
+	openapi-generator-cli generate -i proto/gen/rill/admin/v1/admin.swagger.yaml -g rust -o tui/gen/api/admin/ --additional-properties=packageName="admin",packageVersion="0.1.0"
+	openapi-generator-cli generate -i proto/gen/rill/runtime/v1/runtime.swagger.yaml -g rust -o tui/gen/api/runtime/ --additional-properties=packageName="runtime",packageVersion="0.1.0"
