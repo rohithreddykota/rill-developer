@@ -8,3 +8,4 @@ Rill TUI is a text-based user interface for Rill. It is a terminal application t
 - [ ] Handle environments
 - [ ] Handle State
 - [ ] Add more to-do items
+- [ ] Handle errors types properly
