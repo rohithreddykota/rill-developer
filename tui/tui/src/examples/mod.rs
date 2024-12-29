@@ -17,6 +17,7 @@ where
         let file = File::open(path)?;
         let reader = BufReader::new(file);
         let data = serde_json::from_reader(reader)?;
+        log::info!("Loaded data from {}", path);
         Ok(data)
     } else {
         let data = fetch().await?;
@@ -24,6 +25,12 @@ where
         let file = File::create(path)?;
         let writer = BufWriter::new(file);
         serde_json::to_writer_pretty(writer, &data)?;
+        log::info!("Fetched data and saved to {}", path);
         Ok(data)
     }
+}
+
+pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
+    org_projects::org_projects().await?;
+    Ok(())
 }
