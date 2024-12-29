@@ -20,6 +20,7 @@ pub struct RillCredentails {
     pub token: String,
 }
 
+// todo: tidy up this code
 impl Default for RillCredentails {
     fn default() -> Self {
         // get home directory

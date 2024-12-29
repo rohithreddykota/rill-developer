@@ -1,13 +1,11 @@
 mod config;
 mod credentials;
-use admin::apis::admin_service_api as admin_api;
-use config::ClientConfig;
+// todo: tidy up this code
+mod examples;
+use examples::org_projects;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let config = ClientConfig::default();
-
-    let res = admin_api::admin_service_list_organizations(&config, None, None).await?;
-    println!("{:?}", res);
+    org_projects::org_projects().await?;
     Ok(())
 }

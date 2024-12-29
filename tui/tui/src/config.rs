@@ -42,10 +42,4 @@ mod tests {
             Some(&"Bearer".to_string())
         );
     }
-
-    fn test_default_with_env() {
-        std::env::set_var("RILL_BASE_PATH", "http://test.path.com");
-        let config = ClientConfig::default();
-        assert_eq!(config.base_path, "http://test.path.com");
-    }
 }
